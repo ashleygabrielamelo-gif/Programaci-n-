@@ -1,20 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        :root{
-            --very-light-pink:#C7C7C7; 
-            --text-input-field: #F7F7F7; 
-            --hospital-green: #ACD982; 
-            --white: #FFFFFF; 
-            --black: #000000; 
-         } 
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestión Odontológica</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    
+
+  <aside class="sidebar">
+    <div class="logo">
+      <i data-lucide="activity"></i>
+      <h2>DentalSoft</h2>
+    </div>
+    <nav class="menu">
+      <button class="nav-btn active" onclick="showSection('dashboard')">
+        <i data-lucide="layout-dashboard"></i> Panel Principal
+      </button>
+      <button class="nav-btn" onclick="showSection('pacientes')">
+        <i data-lucide="users"></i> Pacientes e Historia
+      </button>
+      <button class="nav-btn" onclick="showSection('citas')">
+        <i data-lucide="calendar"></i> Agendar Citas
+      </button>
+      <button class="nav-btn" onclick="showSection('reportes')">
+        <i data-lucide="bar-chart-2"></i> Reportes y Métricas
+      </button>
+    </nav>
+    <div class="user-role">
+      <i data-lucide="shield-check"></i>
+      <div>
+        <p class="role-title">Rol: Odontólogo</p>
+        <span class="status-online">● Sesión Segura</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <section id="dashboard" class="content-section active">
+      <header class="section-header">
+        <h1>Panel de Control Operativo</h1>
+        <p>Resumen de actividades diarias y pendientes</p>
+      </header>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <i data-lucide="calendar-check" class="kpi-icon blue"></i>
+          <div>
+            <h3>Citas de Hoy</h3>
+            <p class="kpi-value" id="kpi-citas">8</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <i data-lucide="user-check" class="kpi-icon green"></i>
+          <div>
+            <h3>Pacientes Atendidos</h3>
+            <p class="kpi-value" id="kpi-atendidos">5</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <i data-lucide="file-warning" class="kpi-icon orange"></i>
+          <div>
+            <h3>Historias por Completar</h3>
+            <p class="kpi-value" id="kpi-historias">3</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <i data-lucide="clock" class="kpi-icon red"></i>
+          <div>
+            <h3>Seguimientos Pendientes</h3>
+            <p class="kpi-value" id="kpi-seguimientos">2</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pacientes" class="content-section">
+      <header class="section-header">
+        <h1>Registro de Paciente e Historia Clínica Digital</h1>
+      </header>
+
+      <div class="form-container">
+        <h2>Nuevo Registro de Consulta / Historia Clínica</h2>
+        <form id="patient-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Nombre Completo del Paciente</label>
+              <input type="text" id="nombre" required placeholder="Ej. Ana María Pérez">
+            </div>
+            <div class="form-group">
+              <label for="contacto">Teléfono / Contacto</label>
+              <input type="text" id="contacto" required placeholder="+57 300 000 0000">
+            </div>
+            <div class="form-group span-2">
+              <label for="antecedentes">Antecedentes Médicos / Alergias</label>
+              <textarea id="antecedentes" rows="2" placeholder="Hipertensión, alergia a la penicilina, etc."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="fecha">Fecha de Atencion</label>
+              <input type="date" id="fecha" required>
+            </div>
+            <div class="form-group">
+              <label for="profesional">Odontólogo / Profesional</label>
+              <select id="profesional" required>
+                <option value="Dr. Carlos Mendoza">Dr. Carlos Mendoza</option>
+                <option value="Dra. Sofia Gómez">Dra. Sofia Gómez</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="diagnostico">Diagnóstico</label>
+              <input type="text" id="diagnostico" required placeholder="Caries profunda en pieza 36">
+            </div>
+            <div class="form-group">
+              <label for="procedimiento">Procedimiento Realizado</label>
+              <select id="procedimiento" required>
+                <option value="Resina / Obturación">Resina / Obturación</option>
+                <option value="Profilaxis / Limpieza">Profilaxis / Limpieza</option>
+                <option value="Endodoncia">Endodoncia</option>
+                <option value="Extracción">Extracción</option>
+                <option value="Diseño de Sonrisa">Diseño de Sonrisa</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="radiografia">Adjuntar Radiografía / Documento (Digital)</label>
+              <input type="file" id="radiografia" accept="image/*,.pdf">
+            </div>
+            <div class="form-group checkbox-group span-2">
+              <input type="checkbox" id="consentimiento" required>
+              <label for="consentimiento">El paciente firmó y aceptó el Consentimiento Informado.</label>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary"><i data-lucide="save"></i> Guardar Historia Clínica</button>
+        </form>
+      </div>
+
+      <div class="odontogram-container">
+        <h2>Odontograma Digital Rápido</h2>
+        <p>Haga clic en una pieza dental para registrar observación o marcar tratamiento:</p>
+        <div class="teeth-grid" id="teeth-container">
+        </div>
+      </div>
+
+      <div class="table-container">
+        <h2>Historias Clínicas Recientes</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Paciente</th>
+              <th>Diagnóstico</th>
+              <th>Procedimiento</th>
+              <th>Profesional</th>
+              <th>Consentimiento</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="records-table-body">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="citas" class="content-section">
+      <header class="section-header">
+        <h1>Agendamiento de Citas</h1>
+      </header>
+      <div class="form-container">
+        <form id="appointment-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="cita-paciente">Nombre del Paciente</label>
+              <input type="text" id="cita-paciente" required placeholder="Nombre del paciente">
+            </div>
+            <div class="form-group">
+              <label for="cita-fecha">Fecha y Hora</label>
+              <input type="datetime-local" id="cita-fecha" required>
+            </div>
+            <div class="form-group">
+              <label for="cita-motivo">Motivo de la Consulta</label>
+              <input type="text" id="cita-motivo" placeholder="Valoración, control, dolor...">
+            </div>
+          </div>
+          <button type="submit" class="btn-primary"><i data-lucide="calendar-plus"></i> Agendar Cita</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="reportes" class="content-section">
+      <header class="section-header">
+        <h1>Reportes y Seguridad</h1>
+      </header>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <h3>Consultas por Mes</h3>
+          <p class="stat-number">124</p>
+          <small>+12% en comparación con el mes anterior</small>
+        </div>
+        <div class="stat-box">
+          <h3>Procedimiento Más Frecuente</h3>
+          <p class="stat-number">Resina / Obturación</p>
+          <small>42% del total de atenciones</small>
+        </div>
+      </div>
+
+      <div class="audit-log">
+        <h2>Trazabilidad y Registro de Accesos (Auditoría)</h2>
+        <ul id="log-list">
+          <li>[SEGURIDAD] Respaldo de base de datos completado con éxito.</li>
+          <li>[ACCESO] Dr. Carlos Mendoza accedió a la historia clínica #1021.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
